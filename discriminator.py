@@ -1,4 +1,3 @@
-import torch
 import torch.nn as nn
 import torch.nn.utils as utils
 
@@ -13,28 +12,35 @@ class PatchDiscriminator(nn.Module):
 
         self.conv1 = self.conv_block(in_channels=ni, out_channels=64, kernel_size=4, stride=2, padding=1)
         self.conv2 = self.conv_block(in_channels=64, out_channels=128, kernel_size=4, stride=2, padding=1)
+
         self.conv3 = self.conv_block(in_channels=128, out_channels=256, kernel_size=4, stride=2, padding=1)
+        self.attn1 = SelfAttention(256)
+
         self.conv4 = self.conv_block(in_channels=256, out_channels=512, kernel_size=4, stride=1, padding=1)
+        self.attn2 = SelfAttention(512)
+
         self.conv5 = self.conv_block(in_channels=512, out_channels=1, kernel_size=4, stride=1, padding=1, act=False)
 
     def conv_block(self, in_channels, out_channels, kernel_size=4, stride=2, padding=1, act=True):
         conv = nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding)
-        conv = utils.spectral_norm(conv)
+        conv = utils.parametrizations.spectral_norm(conv)
 
         layer = [conv]
 
         if act:
-            activation = nn.LeakyReLU(negative_slope=0.2, inplace=True)
-            layer += [activation]
+            activation = nn.LeakyReLU(negative_slope=0.1, inplace=True)
+            layer.append(activation)
 
         return nn.Sequential(*layer)
 
     def forward(self, x):
-        x = self.conv1(x)
-        x = self.conv2(x)
-        x = self.conv3(x)
-        x = self.conv4(x)
-        x = self.conv5(x)
-        return x
+        out = self.conv1(x)
+        out = self.conv2(out)
+        out = self.conv3(out)
+        out = self.attn1(out)
+        out = self.conv4(out)
+        out = self.attn2(out)
+        out = self.conv5(out)
+        return out
 
-
+# TODO: add self attention: https://github.com/heykeetae/Self-Attention-GAN/blob/master/sagan_models.py
