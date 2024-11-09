@@ -44,3 +44,5 @@ class PatchDiscriminator(nn.Module):
         return out
 
 # TODO: add self attention: https://github.com/heykeetae/Self-Attention-GAN/blob/master/sagan_models.py
+# https://github.com/heykeetae/Self-Attention-GAN/blob/master/trainer.py
+# TODO: initialize discriminator

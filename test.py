@@ -13,10 +13,10 @@ if __name__ == '__main__':
         'l3': [4, 2, 1],
         'l4': [4, 1, 1],
         'l5': [4, 1, 1]
-    }, 256)
+    }, 192)
 
 if __name__ == '__main__':
-    input = torch.rand(1, 3, 256, 256)
+    input = torch.rand(1, 3, 192, 192)
     output = discriminator(input)
     print(f'output.shape={output.shape}')
     print(discriminator)
