@@ -13,8 +13,10 @@ class MainModel(nn.Module):
 
         self.net_G = net_G.to(self.device)
         self.net_D = net_D.to(self.device)
+
         self.gan_criterion = GANLoss().to(self.device)
         self.criterion = nn.L1Loss().to(self.device)
+
         self.opt_G = optim.Adam(self.net_G.parameters(), lr=lr_G, betas=(beta1, beta2))
         self.opt_D = optim.Adam(self.net_D.parameters(), lr=lr_D, betas=(beta1, beta2))
 
@@ -65,3 +67,10 @@ class MainModel(nn.Module):
             self.opt_G.zero_grad()
             self.backward_G(no_gan)
             self.opt_G.step()
+
+if __name__ == '__main__':
+    from generator import Generator
+    from discriminator import PatchDiscriminator
+    model = MainModel(Generator(), PatchDiscriminator(3))
+    model.setup_input((torch.rand(16, 1, 256, 256), torch.rand(16, 2, 256, 256)))
+    model()
