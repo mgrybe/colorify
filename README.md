@@ -29,27 +29,45 @@ This project uses a subset of 10,000 images from the [Flickr dataset](https://dr
 - **Right**: Images trained with 1 epoch of actual GAN training.
 - Each triplet shows: grayscale input, predicted colorization, and original image for comparison.
 
-<div style="display: flex; gap: 10px;">
-  <img src="/results/l1/image_6.png" style="width: 50%; margin-bottom: -50px;">
-  <img src="/results/gan/image_0e_6.png" style="width: 50%; margin-bottom: -50px;">
-</div>
-
-<div style="display: flex; gap: 10px;">
-  <img src="/results/l1/image_14.png" style="width: 50%; margin-top: -50px; margin-bottom: -50px;">
-  <img src="/results/gan/image_0e_14.png" style="width: 50%; margin-top: -50px; margin-bottom: -50px;">
-</div>
-
-<div style="display: flex; gap: 10px;">
-  <img src="/results/l1/image_16.png" style="width: 50%; margin-top: -50px; margin-bottom: -50px;">
-  <img src="/results/gan/image_0e_16.png" style="width: 50%; margin-top: -50px; margin-bottom: -50px;">
-</div>
-
-<div style="display: flex; gap: 10px;">
-  <img src="/results/l1/image_23.png" style="width: 50%; margin-top: -50px; margin-bottom: -50px;">
-  <img src="/results/gan/image_0e_23.png" style="width: 50%; margin-top: -50px; margin-bottom: -50px;">
-</div>
-
-<div style="display: flex; gap: 10px;">
-  <img src="/results/l1/image_34.png" style="width: 50%; margin-top: -50px; margin-bottom: -50px;">
-  <img src="/results/gan/image_0e_34.png" style="width: 50%; margin-top: -50px; margin-bottom: -50px;">
-</div>
+<table>
+    <tr>
+    <td>
+        <img src="/results/l1/image_6.png">
+    </td>
+    <td>
+        <img src="/results/gan/image_0e_6.png">
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <img src="/results/l1/image_14.png">
+    </td>
+    <td>
+         <img src="/results/gan/image_0e_14.png">
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <img src="/results/l1/image_16.png">
+    </td>
+    <td>
+         <img src="/results/gan/image_0e_16.png">
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <img src="/results/l1/image_23.png">
+    </td>
+    <td>
+         <img src="/results/gan/image_0e_23.png">
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <img src="/results/l1/image_34.png">
+    </td>
+    <td>
+        <img src="/results/gan/image_0e_34.png">
+    </td>
+    </tr>
+</table>
