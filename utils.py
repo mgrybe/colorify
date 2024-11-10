@@ -168,6 +168,35 @@ def resize_images(input_directory='./dataset/train/flicker', output_directory='.
 
 # Flicker dataset: https://drive.google.com/drive/folders/1tZUcXDBeOibC6jcMCtgRRz67pzrAHeHL
 
+class AverageMeter:
+    def __init__(self):
+        self.reset()
+
+    def reset(self):
+        self.count, self.avg, self.sum = [0.] * 3
+
+    def update(self, val, count=1):
+        self.count += count
+        self.sum += count * val
+        self.avg = self.sum / self.count
+
+    def __repr__(self):
+        return f'{self.avg:.5f}'
+
+import matplotlib.pyplot as plt
+
+def plot_loss(loss_dict, title='Loss Curves', xlabel='Iteration', ylabel='Loss', figsize=(8, 6)):
+
+    plt.figure(figsize=figsize)
+    for label, loss_values in loss_dict.items():
+        plt.plot(loss_values, label=label)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
 if __name__ == '__main__':
     pass
     #cleanup_images(gray_dir='./dataset/quasi_monochrome/', check=is_quasi_monochrome_with_rgb)

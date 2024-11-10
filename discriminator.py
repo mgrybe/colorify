@@ -10,7 +10,7 @@ class PatchDiscriminator(nn.Module):
     def __init__(self, ni):
         super(PatchDiscriminator, self).__init__()
 
-        self.conv1 = self.conv_block(in_channels=ni, out_channels=64, kernel_size=4, stride=2, padding=1)
+        self.conv1 = self.conv_block(in_channels=ni, out_channels=64, kernel_size=4, stride=2, padding=1, norm=False)
         self.conv2 = self.conv_block(in_channels=64, out_channels=128, kernel_size=4, stride=2, padding=1)
 
         self.conv3 = self.conv_block(in_channels=128, out_channels=256, kernel_size=4, stride=2, padding=1)
@@ -19,16 +19,18 @@ class PatchDiscriminator(nn.Module):
         self.conv4 = self.conv_block(in_channels=256, out_channels=512, kernel_size=4, stride=1, padding=1)
         self.attn2 = SelfAttention(512)
 
-        self.conv5 = self.conv_block(in_channels=512, out_channels=1, kernel_size=4, stride=1, padding=1, act=False)
+        self.conv5 = self.conv_block(in_channels=512, out_channels=1, kernel_size=4, stride=1, padding=1, norm=False, act=False)
 
-    def conv_block(self, in_channels, out_channels, kernel_size=4, stride=2, padding=1, act=True):
-        conv = nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding)
-        conv = utils.parametrizations.spectral_norm(conv)
+    def conv_block(self, in_channels, out_channels, kernel_size=4, stride=2, padding=1, norm=True, act=True):
+        conv = nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding, bias=not norm)
+
+        if norm:
+            conv = utils.parametrizations.spectral_norm(conv)
 
         layer = [conv]
 
         if act:
-            activation = nn.LeakyReLU(negative_slope=0.1, inplace=True)
+            activation = nn.LeakyReLU(negative_slope=0.2, inplace=True)
             layer.append(activation)
 
         return nn.Sequential(*layer)
