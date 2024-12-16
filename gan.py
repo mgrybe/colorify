@@ -5,11 +5,12 @@ from loss import GANLoss
 
 
 class MainModel(nn.Module):
-    def __init__(self, net_G=None, net_D=None, lr_G=2e-4, lr_D=2e-4, beta1=0.5, beta2=0.999, lambda_L1=100.):
+    def __init__(self, net_G=None, net_D=None, lr_G=2e-4, lr_D=2e-4, beta1=0.5, beta2=0.999, lambda_L1=100., lambda_D=1):
         super().__init__()
 
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.lambda_L1 = lambda_L1
+        self.lambda_D = lambda_D
 
         self.net_G = net_G.to(self.device)
         self.net_D = net_D.to(self.device)
@@ -49,7 +50,7 @@ class MainModel(nn.Module):
 
         if not no_gan:
             self.loss_G_GAN = self.gan_criterion(fake_preds, True)
-            self.loss_G += self.loss_G_GAN
+            self.loss_G += self.loss_G_GAN * self.lambda_D
 
         self.loss_G.backward()
 

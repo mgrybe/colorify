@@ -208,3 +208,5 @@ if __name__ == '__main__':
     #resize_images(input_directory='./dataset/val/flicker', output_directory='./dataset/val/flicker-resized')
     #resize_images(input_directory='./dataset/train/human', output_directory='./dataset/train/human-resized')
     #remove_duplicate_files(directory='./dataset/train/faces')
+    #resize_images(input_directory='./dataset/faces-256px/train/flicker', output_directory='./dataset/faces-256px/train/flicker-resized')
+    remove_duplicate_files(directory='./dataset/faces-256px')

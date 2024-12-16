@@ -166,5 +166,12 @@ def init_model(model, device):
 
 
 if __name__ == '__main__':
-    generator = Generator()
-    print(generator)
+    #generator = Generator()
+    #print(generator)
+    #generator = build_generator()
+    #print(generator)
+    model = resnet18(weights="DEFAULT")#resnet18(weights="DEFAULT")#resnet18()
+    print(model)
+    #print(model.state_dict()['bn1.weight'])
+
+    #torch.save(generator.state_dict(), f'generator-resnet18-256px-0e.pth')
